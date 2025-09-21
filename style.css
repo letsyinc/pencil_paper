@@ -1,0 +1,227 @@
+/*
+    Pencil Paper AI - Style Implementation
+    Developer: This CSS translates the strategic blueprint into a functional design,
+    prioritizing precision, clarity, and a premium feel.
+*/
+
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('fonts/Gilroy-Regular.woff2') format('woff2'),
+       url('fonts/Gilroy-Regular.woff') format('woff');
+  font-weight: 400; /* 400 corresponds to 'Regular' */
+  font-style: normal;
+  font-display: swap; /* Ensures text remains visible while fonts load */
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('fonts/Gilroy-ExtraBold.woff2') format('woff2'),
+       url('fonts/Gilroy-ExtraBold.woff') format('woff');
+  font-weight: 800; /* 800 corresponds to 'ExtraBold' */
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+    --drafting-cream: #FDFDF7;
+    --graphite-grey: #333745;
+    --blueprint-blue: #0041C2;
+    --architects-ochre: #C8963E;
+
+    /* Using Plus Jakarta Sans as a proxy for Gilroy. Replace with licensed font files in production. */
+    --font-strategist: 'Gilroy', sans-serif;
+    --font-clarity: 'Gilroy', sans-serif;
+    --font-architect: 'IBM Plex Mono', monospace;
+
+    --transition-speed: 400ms;
+    --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Global Reset & Base Styles --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--drafting-cream);
+    color: var(--graphite-grey);
+    font-family: var(--font-clarity);
+    font-weight: 400;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none; /* Hide default cursor */
+}
+
+/* --- Bespoke Cursor --- */
+.custom-cursor {
+    width: 8px;
+    height: 8px;
+    background-color: var(--graphite-grey);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease-out, width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out;
+    transform-origin: center center;
+}
+.custom-cursor.hovered {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    border: 1px solid var(--graphite-grey);
+}
+.custom-cursor.clicked {
+    transform: scale(0.8);
+}
+
+
+/* --- Typographic Hierarchy --- */
+h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
+h1 { font-family: var(--font-strategist); font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-family: var(--font-architect); font-size: clamp(1.25rem, 3vw, 1.75rem); margin-bottom: 2rem; }
+h3 { font-family: var(--font-architect); font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 1rem; }
+h4 { font-family: var(--font-architect); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+p { font-size: clamp(1rem, 2vw, 1.125rem); max-width: 750px; margin: 0 0 1rem 0; }
+a { color: var(--blueprint-blue); text-decoration: none; transition: opacity var(--transition-speed) var(--transition-easing); cursor: none; }
+a:hover { opacity: 0.7; }
+
+/* --- Layout & Sections --- */
+section {
+    padding: 6rem 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden; /* Prevents animations from showing outside their container */
+}
+
+/* --- Animation Utility --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s var(--transition-easing), transform 0.8s var(--transition-easing);
+}
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Header & Navigation --- */
+.main-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background-color: rgba(253, 253, 247, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(51, 55, 69, 0.1);
+}
+.logo { font-family: var(--font-architect); font-weight: 700; }
+.desktop-nav ul { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
+.desktop-nav a { color: var(--graphite-grey); }
+.cta-button {
+    background-color: var(--architects-ochre);
+    color: var(--graphite-grey) !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    font-weight: 700;
+    transition: transform var(--transition-speed) var(--transition-easing);
+}
+.cta-button:hover { transform: scale(1.05); opacity: 1; }
+.mobile-nav-toggle { display: none; }
+.mobile-nav { display: none; }
+
+
+/* --- Hero Section --- */
+.hero-section {
+    min-height: 90vh;
+    justify-content: center;
+    background-image: url('https://storage.googleapis.com/gweb-aip-images/public/workshop/pencil-paper-ai-1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.hero-section h1 { color: var(--graphite-grey); }
+.hero-section h2 { background-color: rgba(253, 253, 247, 0.75); padding: 0.5rem 1rem; color: var(--graphite-grey); }
+
+/* --- Dichotomy Section --- */
+.dichotomy-section { display: grid; grid-template-columns: 1fr 1fr; padding: 0; text-align: left; }
+.dichotomy-section .column { padding: 6rem 5%; }
+.dichotomy-section .problem { background-color: var(--graphite-grey); color: var(--drafting-cream); }
+.dichotomy-section .solution-image { width: 100%; max-width: 600px; margin-bottom: 2rem; }
+
+/* --- Process Section --- */
+.process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; width: 100%; max-width: 1200px; margin-top: 3rem; }
+.process-step img { width: 100%; height: 200px; object-fit: cover; margin-bottom: 1.5rem; }
+
+/* --- Engagements Section --- */
+.engagements-section { background-color: rgba(51, 55, 69, 0.03); }
+.engagement-card { background-color: var(--drafting-cream); border: 1px solid rgba(51, 55, 69, 0.1); padding: 2.5rem; text-align: left; margin-bottom: 2rem; width: 100%; max-width: 900px; }
+.engagement-card h4 { text-align: center; }
+.engagement-card strong { font-family: var(--font-architect); }
+
+/* --- Principle Section --- */
+.principle-section p { margin: 2rem auto; }
+.principle-image { width: 100%; max-width: 800px; }
+
+/* --- CTA Section --- */
+.cta-section { background-color: var(--graphite-grey); color: var(--drafting-cream); }
+.cta-section h2 { margin: 1rem 0 2rem 0; }
+#contact-form { width: 100%; max-width: 500px; margin-top: 2rem; }
+.form-group { display: flex; flex-direction: column; margin-bottom: 1rem; text-align: left; }
+.form-group label { margin-bottom: 0.5rem; font-family: var(--font-architect); }
+.form-group input { background-color: var(--drafting-cream); border: 1px solid var(--graphite-grey); padding: 0.75rem; font-family: var(--font-clarity); font-size: 1rem; border-radius: 2px; }
+.cta-button-large { background-color: var(--architects-ochre); color: var(--graphite-grey); padding: 1rem 2.5rem; border: none; border-radius: 2px; font-weight: 800; font-family: var(--font-strategist); font-size: 1.1rem; cursor: none; transition: transform var(--transition-speed) var(--transition-easing); }
+.cta-button-large:hover { transform: scale(1.05); }
+.hidden { position: absolute; left: -5000px; } /* For Netlify Honeypot */
+
+/* --- Footer --- */
+.main-footer { background-color: var(--graphite-grey); color: var(--drafting-cream); padding: 3rem 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; text-align: center; }
+.main-footer a { color: var(--drafting-cream); }
+        
+/* --- Responsive Adjustments & Mobile Navigation --- */
+@media (max-width: 768px) {
+    .desktop-nav, .cta-button { display: none; }
+    .mobile-nav-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 10;
+    }
+    .mobile-nav-toggle span { width: 30px; height: 2px; background: var(--graphite-grey); border-radius: 10px; transition: all 0.3s linear; position: relative; transform-origin: 1px; }
+    
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        top: 0; right: 0;
+        width: 100%; height: 100vh;
+        background: var(--drafting-cream);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav ul { list-style: none; padding: 0; }
+    .mobile-nav li { margin: 2rem 0; text-align: center; }
+    .mobile-nav a { font-family: var(--font-architect); font-size: 1.5rem; color: var(--graphite-grey); }
+
+    .dichotomy-section { grid-template-columns: 1fr; }
+    section { padding: 4rem 5%; }
+}
